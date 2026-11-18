@@ -1,29 +1,39 @@
 ---
 layout: default
 title: "AAAA-MM-JJ : sujet de la séance"
-parent: Prénom Nom
-grand_parent: Journal de bord
+parent: Journal de bord
 ---
 
 <!--
 Modèle de séance, ce fichier n'apparaît pas sur le site (son nom commence par "_").
-Copiez-le dans votre dossier, renommez la copie avec la date (ex. 2026-09-23.md), puis :
+Copiez-le dans docs/journal/, renommez la copie avec la date et le sujet (ex. 2026-11-20-td2.md), puis :
 - title : la date et le sujet de la séance ;
-- parent : EXACTEMENT le titre de votre page étudiant (docs/journal/votre-dossier/index.md).
+- parent : laisser « Journal de bord » (journal commun du binôme).
 -->
 
 # AAAA-MM-JJ : sujet de la séance
 
-**Séance :** planifiée / hors créneau · **Durée :** 2 h
+**Séance :** planifiée / hors créneau · **Durée :** X h
+**Présents :** Timothé Froumentin, Victor Fonte Nove Lamotte
+**Tutoriels suivis :** [titre](lien)
 
 ## Fait
 
-Ce que j'ai réalisé pendant la séance.
+Ce qu'on a réalisé pendant la séance, en quelques points.
+
+## Comment ça marche
+
+Les principes techniques derrière ce qu'on a fait (composant, protocole, code), avec un schéma ou un tableau si utile.
+
+## Comment on a fait
+
+Les étapes, dans l'ordre, avec le code, le câblage et les réglages, pour pouvoir refaire la séance.
 
 ## Pourquoi
 
-Les décisions prises et leurs raisons (mesures, essais, échanges avec l'équipe).
+Les décisions prises et leurs raisons (mesures, essais, échanges dans l'équipe).
 
 ## Reste à faire
 
-Les prochaines actions, et ce qui bloque éventuellement.
+- [ ] Prochaine action
+- [ ] Ce qui bloque éventuellement
