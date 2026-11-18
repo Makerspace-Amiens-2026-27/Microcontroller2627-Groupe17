@@ -19,8 +19,8 @@ title: Équipe et rôles
 
 | Membre | Formation | Compte GitHub |
 |---|---|---|
-| Prénom Nom | … | [@pseudo](https://github.com/pseudo) |
-| Prénom Nom | … | [@pseudo](https://github.com/pseudo) |
+| Timothé Froumentin | I1 | [@TmoTBTW](https://github.com/TmoTBTW) |
+| Victor Fonte Nove Lamotte | I1 | [@pseudo](https://github.com/pseudo) |
 
 ## Rôles
 
