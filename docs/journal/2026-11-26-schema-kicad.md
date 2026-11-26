@@ -9,11 +9,12 @@ nav_order: 5
 
 **Séance :** planifiée · **Durée :** 1 h 30
 **Présents :** Timothé Froumentin, Victor Fonte Nove Lamotte
-**Tutoriels suivis :** [Concevoir la carte de la console](https://doc.makerspace-amiens.fr/workshops/microcontroleur/tutorials/conception-carte-kicad/) (étape 2 et début de l'étape 3), [KiCad : bases d'Eeschema](https://doc.makerspace-amiens.fr/docs/tutorials/software/kicad/kicad-eeschema-bases/) (gestes appliqués directement à notre carte)
+**Tutoriels suivis :** [Concevoir la carte de la console](https://doc.makerspace-amiens.fr/workshops/microcontroleur/tutorials/conception-carte-kicad/) (étape 2 et début de l'étape 3), [KiCad : bases d'Eeschema](https://doc.makerspace-amiens.fr/docs/tutorials/software/kicad/kicad-eeschema-bases/) (fait par Victor sur un circuit d'entraînement)
 
 ## Fait
 
-- **Schéma complet de la carte relié** : XIAO, écran, joystick, deux boutons, connecteur I2C, LED témoin et condensateur de découplage.
+- **Tutoriel « bases d'Eeschema » (Victor)** : circuit d'entraînement LED + résistance, avec symboles d'alimentation, PWR_FLAG et ERC.
+- **Schéma complet de la carte relié (Timothé)** : XIAO, écran, joystick, deux boutons, connecteur I2C, LED témoin et condensateur de découplage.
 - **ERC lancé : 0 erreur**, 2 avertissements (empreintes par défaut de la XIAO et du joystick introuvables).
 - **Empreinte de la XIAO** ajoutée au projet, depuis la bibliothèque officielle Seeed Studio (`Seeed-XIAO.pretty`).
 
@@ -39,6 +40,24 @@ Une étiquette n'est reliée que si son point d'accroche touche **exactement le 
 Le 5 V de l'USB-C reste à l'intérieur de la XIAO, dont le régulateur fournit le **3,3 V** sur la broche `3V3_OUT`. Tous les modules sont alimentés par ce `+3V3`, car les entrées de l'ESP32-S3 ne supportent pas plus de 3,3 V. La broche `VBUS` (5 V) n'est donc pas utilisée.
 
 ## Comment on a fait
+
+### 0. Le tutoriel d'entraînement (Victor)
+
+Avant de toucher au schéma de la carte, Victor a suivi le tutoriel *bases d'Eeschema* dans un projet séparé. Le circuit :
+
+```
++5V ── R1 (220 Ω) ── anode ▷| cathode ── GND
+ │                    (LED rouge)           │
+PWR_FLAG                                PWR_FLAG
+```
+
+- **Symboles d'alimentation** `+5V` et `GND`, reliés aux composants par des fils (touche **W**).
+- **Valeurs** : R1 = 220 Ω, LED rouge. Courant : (5 V − 2 V) / 220 Ω ≈ **14 mA**, la valeur typique d'une LED rouge classique.
+- **Sens de la LED** : l'anode du côté de la résistance (+5V), la cathode (la barre) du côté de GND.
+- **PWR_FLAG** sur le fil +5V et sur le fil GND : sans eux, l'ERC signale « broche d'entrée d'alimentation non alimentée », car les symboles `+5V` et `GND` sont des **entrées** d'alimentation et rien dans le schéma ne les fournit (dans la réalité, c'est une alimentation externe). Le PWR_FLAG dit à l'ERC : « ce fil est alimenté de l'extérieur ».
+- **ERC** lancé pour vérifier le circuit.
+
+Ce tutoriel a permis d'apprendre les gestes de base (placer, relier, nommer, vérifier) avant de les appliquer à la carte.
 
 ### A. Les signaux de la XIAO (étiquettes)
 
@@ -98,7 +117,7 @@ Sur le symbole, les broches ne sont pas dans l'ordre (D1, D2, D0, D3, D4, D6, D5
 - **D6 pour SW2** : D6 est aussi la sortie TX de l'UART0, qui envoie des messages au démarrage. Le bouton ne relie D6 à GND que pendant un appui, ce qui ne gêne pas le fonctionnement normal ; il faut seulement éviter d'appuyer sur SW2 pendant le démarrage. *(Choix à confirmer avec l'enseignant.)*
 - **CS de l'écran à GND et rétroéclairage à +3V3** : l'écran est le seul périphérique SPI, il peut rester sélectionné en permanence ; cela libère deux broches de la XIAO.
 - **Ordre de J2 (GND, +3V3, SDA, SCL)** : c'est l'ordre des connecteurs I2C Qwiic / STEMMA QT, compatible avec des modules du commerce.
-- **Pas de PWR_FLAG** : toutes les broches de nos symboles sont « passives », l'ERC ne signale donc aucun problème d'alimentation.
+- **PWR_FLAG dans le tutoriel, pas sur la carte** : dans le circuit d'entraînement, le +5V vient d'une alimentation extérieure au schéma, il faut donc un PWR_FLAG. Sur notre carte, toutes les broches des symboles (XIAO comprise) sont « passives » : l'ERC ne signale aucun problème d'alimentation et le PWR_FLAG n'est pas nécessaire.
 
 ## Reste à faire
 
